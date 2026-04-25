@@ -143,25 +143,111 @@
                         </div>
 
                         <div class="row align-items-center mb-4">
-                            <div class="col-md-6 col-lg-6">
+                            <h6 class="mb-2">@lang('Umrah Pricing (Room Types)')</h6>
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="mb-2 form--label">@lang('Price')</label>
+                                    <label class="mb-2 form--label">@lang('Price Quad (4 pax)')</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control form--control" placeholder="Price"
-                                            name="price" aria-label="price" aria-describedby="basic-addon2"
-                                            value="{{ old('price') }}" required>
-                                        <span class="input-group-text" id="basic-addon2">{{ gs()->cur_sym }}</span>
+                                        <input type="text" class="form-control form--control" placeholder="Price Quad" name="price_quad" value="{{ old('price_quad') }}" required>
+                                        <span class="input-group-text">{{ gs()->cur_sym }}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="mb-2 form--label">@lang('Discount')</label>
-                                    <input type="number" step="any" name="discount"
-                                        class="form-control form--control" placeholder="@lang('Discount')">
+                                    <label class="mb-2 form--label">@lang('Price Triple (3 pax)')</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form--control" placeholder="Price Triple" name="price_triple" value="{{ old('price_triple') }}" required>
+                                        <span class="input-group-text">{{ gs()->cur_sym }}</span>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Price Double (2 pax)')</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form--control" placeholder="Price Double" name="price_double" value="{{ old('price_double') }}" required>
+                                        <span class="input-group-text">{{ gs()->cur_sym }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Keep original price as base/default -->
+                            <div class="col-md-6 mt-2">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Base Price (for sorting)')</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form--control" placeholder="Base Price" name="price" value="{{ old('price') }}" required>
+                                        <span class="input-group-text">{{ gs()->cur_sym }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Discount')</label>
+                                    <input type="number" step="any" name="discount" class="form-control form--control" placeholder="@lang('Discount')">
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="row mb-4">
+                            <h6 class="mb-2">@lang('Flight & Departure')</h6>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Airline Name')</label>
+                                    <input type="text" name="airline_name" class="form-control form--control" placeholder="e.g. Saudia Airlines" value="{{ old('airline_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Flight Type')</label>
+                                    <select name="flight_type" class="form-control form--control">
+                                        <option value="Direct">@lang('Direct')</option>
+                                        <option value="Transit">@lang('Transit')</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Departure City')</label>
+                                    <input type="text" name="departure_city" class="form-control form--control" placeholder="e.g. Jakarta" value="{{ old('departure_city') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <h6 class="mb-2">@lang('Hotels')</h6>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Makkah Hotel')</label>
+                                    <input type="text" name="hotel_makkah" class="form-control form--control" placeholder="Makkah Hotel Name" value="{{ old('hotel_makkah') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Makkah Rating')</label>
+                                    <select name="hotel_makkah_rating" class="form-control form--control">
+                                        <option value="5">5 Star</option>
+                                        <option value="4">4 Star</option>
+                                        <option value="3">3 Star</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Madinah Hotel')</label>
+                                    <input type="text" name="hotel_madinah" class="form-control form--control" placeholder="Madinah Hotel Name" value="{{ old('hotel_madinah') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="mb-2 form--label">@lang('Madinah Rating')</label>
+                                    <select name="hotel_madinah_rating" class="form-control form--control">
+                                        <option value="5">5 Star</option>
+                                        <option value="4">4 Star</option>
+                                        <option value="3">3 Star</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row mb-4">

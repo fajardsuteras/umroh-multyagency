@@ -103,6 +103,41 @@
                                 value="{{ $user->address->city }}">
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="mb-2 form--label">@lang('Company Name')</label>
+                            <input type="text" class="form-control form--control" name="company_name"
+                                value="{{ $user->company_name }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="mb-2 form--label">@lang('PPIU / Kemenag Number')</label>
+                            <input type="text" class="form-control form--control" name="ppiu_number"
+                                value="{{ $user->ppiu_number }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="mb-2 form--label">@lang('WhatsApp Number')</label>
+                            <input type="text" class="form-control form--control" name="whatsapp_number"
+                                value="{{ $user->whatsapp_number }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="mb-2 form--label">@lang('Instagram')</label>
+                            <input type="text" class="form-control form--control" name="instagram"
+                                value="{{ $user->instagram }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="mb-2 form--label">@lang('Website')</label>
+                            <input type="text" class="form-control form--control" name="website"
+                                value="{{ $user->website }}">
+                        </div>
+                    </div>
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label class="mb-2 form--label">@lang('Country')</label>

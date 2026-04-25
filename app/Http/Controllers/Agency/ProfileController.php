@@ -42,6 +42,12 @@ class ProfileController extends Controller
             'city' => $request->city,
         ];
 
+        $user->company_name = $request->company_name;
+        $user->ppiu_number = $request->ppiu_number;
+        $user->whatsapp_number = $request->whatsapp_number;
+        $user->instagram = $request->instagram;
+        $user->website = $request->website;
+
         if ($request->hasFile('image'))
         {
             $path = getFilePath('agencyProfile');
