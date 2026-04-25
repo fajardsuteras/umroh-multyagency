@@ -14,6 +14,7 @@
                                 <label for="photo_upload"><i class="fa-regular fa-image"></i></label>
                                 <input id="photo_upload" type="file" name="image" class="upload_file">
                             </div>
+                            <small class="text-white mt-2 d-block">@lang('Logo Perusahaan (16x16)px')</small>
                         </div>
                         <div class="profile-details">
                             <ul>
@@ -77,7 +78,7 @@
 
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label class="mb-2 form--label">@lang('Address')</label>
+                            <label class="mb-2 form--label">@lang('Alamat Travel (pisahkan dengan koma untuk cabang)')</label>
                             <input type="text" class="form-control form--control" name="address"
                                 value="{{ $user->address->address }}">
                         </div>
@@ -105,7 +106,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label class="mb-2 form--label">@lang('Company Name')</label>
+                            <label class="mb-2 form--label">@lang('Nama Travel')</label>
                             <input type="text" class="form-control form--control" name="company_name"
                                 value="{{ $user->company_name }}">
                         </div>
@@ -119,21 +120,21 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label class="mb-2 form--label">@lang('WhatsApp Number')</label>
+                            <label class="mb-2 form--label">@lang('Kontak PIC Travel')</label>
                             <input type="text" class="form-control form--control" name="whatsapp_number"
                                 value="{{ $user->whatsapp_number }}">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label class="mb-2 form--label">@lang('Instagram')</label>
+                            <label class="mb-2 form--label">@lang('Media Sosial (pisahkan dengan koma)')</label>
                             <input type="text" class="form-control form--control" name="instagram"
                                 value="{{ $user->instagram }}">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label class="mb-2 form--label">@lang('Website')</label>
+                            <label class="mb-2 form--label">@lang('URL Website')</label>
                             <input type="text" class="form-control form--control" name="website"
                                 value="{{ $user->website }}">
                         </div>

@@ -184,6 +184,11 @@ class ManageAgenciesController extends Controller
                             'zip' => $request->zip,
                             'country' => $country,
                         ];
+        $user->company_name = $request->company_name;
+        $user->ppiu_number = $request->ppiu_number;
+        $user->whatsapp_number = $request->whatsapp_number;
+        $user->instagram = $request->instagram;
+        $user->website = $request->website;
         $user->ev = $request->ev ? 1 : 0;
         $user->sv = $request->sv ? 1 : 0;
         $user->ts = $request->ts ? 1 : 0;
