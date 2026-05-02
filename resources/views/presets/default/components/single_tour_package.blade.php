@@ -1,19 +1,20 @@
 @forelse ($tourPackages as $item)
-    <div
-        class="col-md-4 col-sm-6">
+    <div class="col-md-4 col-sm-6">
         <div class="tour-card radius--20 position-relative bg--white">
             <div class="tour-card__thumb">
                 <a href="{{ route('tour.package.details', [$item->id, slug($item->title)]) }}">
+                    {{-- Perbaikan: Gunakan @ dan ?? untuk fallback ke gambar default jika null --}}
                     <img class="fit--img"
-                        src="{{ getImage(getFilePath('tourPackageImage') . '/thumb_' . $item->TourPackagePrimaryImage->image) }}"
+                        src="{{ getImage(getFilePath('tourPackageImage') . '/thumb_' . @$item->TourPackagePrimaryImage->image, getFilePath('default')) }}"
                         alt="Tour Image">
                 </a>
             </div>
-            @if ($item->discount)
+            
+            @if ($item->discount > 0)
                 <span class="tour-card__tag position-absolute text--white fw--500">
-                    -{{ discountShowAmount($item->discount) }}% </span>
+                    -{{ discountShowAmount($item->discount) }}% 
+                </span>
             @endif
-
 
             <button
                 class="tour-card__favbtn position-absolute d-flex justify-content-center align-items-center wishlist-btn"
@@ -31,11 +32,13 @@
                                 $location = implode(', ', $locationParts);
                             @endphp
                             @if($location)
-                            <p title="{{ $location }}" class="fs--14">
-                                <i class="fa-regular fa-compass"></i>
-                                {{ strLimit($location, 18) }}
-                            </p>
-                        @endif
+                                <p title="{{ $location }}" class="fs--14">
+                                    <i class="fa-regular fa-compass"></i>
+                                    {{ strLimit($location, 18) }}
+                                </p>
+                            @else
+                                <p class="fs--14"><i class="fa-regular fa-compass"></i> @lang('No Location')</p>
+                            @endif
                         </li>
                         <li class="flex-shrink-0">
                             <p class="fs--14"><i class="fa-regular fa-clock"></i>
@@ -47,9 +50,10 @@
 
                 <div class="tour-card__star d-flex align-items-center">
                     <ul class="d-flex">
-                        @php echo calculateIndividualRating($item->average_rating) @endphp
+                        {{-- Perbaikan: Pastikan average_rating memiliki nilai default 0 --}}
+                        @php echo calculateIndividualRating($item->average_rating ?? 0) @endphp
                     </ul>
-                    <p class="fs--14">({{ $item->average_rating }})</p>
+                    <p class="fs--14">({{ number_format($item->average_rating ?? 0, 1) }})</p>
                 </div>
 
                 <a href="{{ route('tour.package.details', [$item->id, slug($item->title)]) }}">
@@ -60,8 +64,10 @@
 
                 <div class="tour-card__price-wrap d-flex justify-content-between align-items-center gap--16 flex-wrap">
                     <div class="tour-card__price">
-                        <h6 class="fs--20 fw--600 mb-0 body--font">{{ $general->cur_sym }}{{ $item->price }}<span
-                                class="text--black7 fs--16">/@lang('package')</span></h6>
+                        <h6 class="fs--20 fw--600 mb-0 body--font">
+                            {{ $general->cur_sym }}{{ showAmount($item->price) }}
+                            <span class="text--black7 fs--16">/@lang('package')</span>
+                        </h6>
                     </div>
 
                     <div class="tour-card__btn-wrap">
@@ -70,21 +76,37 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @empty
-    <p class="text-center">@lang('No data found')</p>
+    <div class="col-lg-12">
+        <p class="text-center">@lang('No data found')</p>
+    </div>
 @endforelse
 
 <div class="mt-4">
-    @if (!request()->ajax() && Route::is('browse') && $tourPackages->hasPages())
-        @if ($tourPackages->hasPages())
+    {{-- Perbaikan: Sederhanakan pengecekan pagination --}}
+    @php
+    /*
+    @if ($tourPackages->hasPages())
+        <div class="row mt-3">
+            <div class="col-lg-12 justify-content-end d-flex">
+                {{ $tourPackages->links() }}
+            </div>
+        </div>
+        
+    @endif
+    */
+    @endphp
+    <div class="mt-4">
+    {{-- Cek apakah variabel ini adalah instance dari Paginator sebelum memanggil hasPages --}}
+    @if ($tourPackages instanceof \Illuminate\Pagination\LengthAwarePaginator && $tourPackages->hasPages())
             <div class="row mt-3">
                 <div class="col-lg-12 justify-content-end d-flex">
                     {{ $tourPackages->links() }}
                 </div>
             </div>
         @endif
-    @endif
+    </div>
+    
 </div>

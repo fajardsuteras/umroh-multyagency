@@ -1,13 +1,16 @@
     <!--==================== Preloader Start ====================-->
     <div id="preloader">
         <div id="text">
-            <p>T</p>
-            <p>R</p>
-            <p>A</p>
-            <p>V</p>
+            <p>P</p>
             <p>E</p>
-            <p>L</p>
-            <p class="active">A</p>
+            <p>G</p>
+            <p>I</p>
+            <p>U</p>
+            <p>M</p>
+            <p>R</p>
+            <p>O</p>
+            <p>H</p>
+            <p class="active">.</p>
         </div>
     </div>
 

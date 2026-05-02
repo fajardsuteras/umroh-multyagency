@@ -145,7 +145,7 @@
                                                 </div>
                                                 <div class="content--wrap">
                                                     <h6 class="mb-0 fw--500 text--black7">
-                                                        {{ __($tourPackage->destination_overview->departure_form) }}
+                                                        {{ __(@$tourPackage->destination_overview->departure_form) }}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -160,7 +160,7 @@
                                                 </div>
                                                 <div class="content--wrap">
                                                     <h6 class="mb-0 fw--500 text--black7">
-                                                        {{ __($tourPackage->destination_overview->arrival) }}
+                                                        {{ __(@$tourPackage->destination_overview->arrival) }}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -175,7 +175,7 @@
                                                 </div>
                                                 <div class="content--wrap">
                                                     <h6 class="mb-0 fw--500 text--black7">
-                                                        {{ __($tourPackage->destination_overview->transportation) }}
+                                                        {{ __(@$tourPackage->destination_overview->transportation) }}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -190,7 +190,7 @@
                                                 </div>
                                                 <div class="content--wrap">
                                                     <h6 class="mb-0 fw--500 text--black7">
-                                                        {{ __($tourPackage->destination_overview->accommodation) }}
+                                                        {{ __(@$tourPackage->destination_overview->accommodation) }}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -204,7 +204,7 @@
                                                     <p>@lang('Tour Type')</p> 
                                                 </div>
                                                 <div class="content--wrap">
-                                                    <h6 class="mb-0 fw--500 text--black7">{{ __($tourPackage->category->name) }}
+                                                    <h6 class="mb-0 fw--500 text--black7">{{ __(@$tourPackage->category->name) }}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -218,7 +218,7 @@
                                                     <p>@lang('Person')</p> 
                                                 </div>
                                                 <div class="content--wrap">
-                                                    <h6 class="mb-0 fw--500 text--black7">{{ $tourPackage->person_capability }}
+                                                    <h6 class="mb-0 fw--500 text--black7">{{ @$tourPackage->person_capability }}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -230,7 +230,7 @@
                                     <h6 class="fs--22 fw--600">@lang('Description')</h6>
                                     <div class="description">
                                         @php
-                                            echo $tourPackage->description;
+                                            echo @$tourPackage->description;
                                         @endphp
 
                                     </div>
@@ -259,8 +259,8 @@
                                         @foreach ($tourPackage->features as $item)
                                             <li class="d-flex gap--8">
                                                 <span class="text--success">
-                                                    @php echo (iconCheck($item->icon)) @endphp </span>
-                                                <p>{{ __($item->feature) }}</p>
+                                                    @php echo (iconCheck($item->icon??"user")) @endphp </span>
+                                                <p>{{ __(@$item->feature) }}</p>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -271,7 +271,7 @@
                                 <div class="map-section radius--12 overflow-hidden">
                                     <div class="map-box">
                                         <iframe
-                                            src="https://maps.google.com/maps?q={{ $tourPackage->latitude }},{{ $tourPackage->longitude }}&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                                            src="https://maps.google.com/maps?q={{ @$tourPackage->latitude }},{{ @$tourPackage->longitude }}&t=&z=14&ie=UTF8&iwloc=&output=embed"
                                             allowfullscreen="" loading="lazy">
                                         </iframe>
                                     </div>
@@ -354,9 +354,9 @@
 
                                 <div class="product--info__item d-flex flex-column gap--20">
                                     <div>
-                                        <p class="mb-1"><i class="fa-solid fa-calendar-days"></i> @lang('From - To') {{ $tourPackage->flexible_date == 1 ? '(Flexible)': '' }}</p>
+                                        <p class="mb-1"><i class="fa-solid fa-calendar-days"></i> @lang('From - To') {{ @$tourPackage->flexible_date == 1 ? '(Flexible)': '' }}</p>
                                         <h6 class="price fs--18 fw--500 mb-0 text--black7">
-                                            {{ showDateTime($tourPackage->tour_start, 'M d, Y') }} - {{ showDateTime($tourPackage->tour_end, 'M d, Y') }}
+                                            {{ showDateTime(@$tourPackage->tour_start, 'M d, Y') }} - {{ showDateTime(@$tourPackage->tour_end, 'M d, Y') }}
                                         </h6>
                                     </div>
                                 </div>
@@ -364,11 +364,11 @@
                                 <div class="product--info__item">
                                     <p class="mb-1">@lang('Price')</p>
                                     <h6 class="price fs--28 fw--600 mb-0">
-                                        {{ $general->cur_sym }}{{ showAmount(showTourPackageCalculateDiscount($tourPackage->price, $tourPackage->discount)) }}
+                                        {{ $general->cur_sym }}{{ showAmount(showTourPackageCalculateDiscount($tourPackage->price??0, $tourPackage->discount??0)) }}
                                         @if ($tourPackage->discount)
                                             <span class="text--black7 fs--16 ">{{ $general->cur_sym }} <del
                                                     class="text--black7 fs--16">
-                                                    {{ $tourPackage->discount }} </del></span>
+                                                    {{ $tourPackage->discount??0 }} </del></span>
                                         @endif
                                     </h6>
                                 </div>

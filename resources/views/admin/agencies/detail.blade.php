@@ -195,7 +195,7 @@
                             <div class="row mt-4">
                                 <div class="col-md-12">
                                     <div class="form-group ">
-                                        <label>@lang('Alamat Travel')</label>
+                                        <label>@lang('Address')</label>
                                         <input class="form-control" type="text" name="address"
                                             value="{{ $user->address->address }}">
                                     </div>
@@ -234,39 +234,6 @@
                                                 __($country->country) }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>@lang('Nama Travel')</label>
-                                        <input class="form-control" type="text" name="company_name" value="{{ $user->company_name }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>@lang('PPIU Number')</label>
-                                        <input class="form-control" type="text" name="ppiu_number" value="{{ $user->ppiu_number }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>@lang('Kontak PIC Travel')</label>
-                                        <input class="form-control" type="text" name="whatsapp_number" value="{{ $user->whatsapp_number }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>@lang('Media Sosial (pisahkan dengan koma)')</label>
-                                        <input class="form-control" type="text" name="instagram" value="{{ $user->instagram }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>@lang('URL Website')</label>
-                                        <input class="form-control" type="text" name="website" value="{{ $user->website }}">
                                     </div>
                                 </div>
                             </div>
