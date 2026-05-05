@@ -38,7 +38,7 @@
                 @include('admin.components.tabs.tour_package')
             </div>
         </div>
-       
+
         <div class="col-lg-12">
             <div class="show-filter mb-3 text-end">
                 <button type="button" class="btn btn--primary showFilterBtn btn-sm">
@@ -60,7 +60,6 @@
                                     <th>@lang('Category')</th>
                                     <th>@lang('Amount')</th>
                                     <th>@lang('Person')</th>
-                                    <th>@lang('Country')</th>
                                     <th>@lang('Tour Status')</th>
                                     <th>@lang('Action')</th>
                                 </tr>
@@ -71,43 +70,43 @@
                                         <td>{{ $loop->iteration }}</td>
 
                                         <td class="text--primary">
-                                            @if ($item->user_type == 'admin')
+                                            @if (@$item->user_type == 'admin')
                                                 @lang('Admin')
                                             @else
-                                            <a href="{{route('admin.agencies.detail',$item?->agency->id)}}">
-                                                @lang('Agency') ({{$item?->agency->username}})
+                                            <a href="{{route('admin.agencies.detail',@$item?->agency->id)}}">
+                                                {{@$item?->agency->company_name}}
                                             </a>
                                             @endif
                                         </td>
-                                        <td>{{ __(strLimit($item->title, 30)) }}</td>
+                                        <td>{{ __(strLimit(@$item->title, 30)) }}</td>
                                         <td>
-                                            <a href="{{ route('tour.package.details', [$item->id, slug($item->title)]) }}">
-                                                <img src="{{ getImage(getFilePath('tourPackageImage') . '/' . $item->TourPackagePrimaryImage->image) }}"
+                                            <a href="{{ route('tour.package.details', [@$item->id, slug(@$item->title)]) }}">
+                                                <img src="{{ @$item->TourPackagePrimaryImage ? getImage(getFilePath('tourPackageImage') . '/' . @$item->TourPackagePrimaryImage->image) : asset('path/to/default/image.png') }}"
                                                     alt="@lang('image')" class="rounded img-thumb"
                                                     style="width: 60px;height:60px;">
                                             </a>
                                         </td>
 
-                                        <td>{{ __($item->category->name) }}</td>
-                                        <td> {{ $general->cur_sym }}{{ showAmount($item->price) }}</td>
-                                        <td> {{ $item->person_capability }}</td>
-                                        <td> {{ $item->country }}</td>
+                                        <td>{{ __(@$item->category->name) }}</td>
+                                        <td> {{ $general->cur_sym }}{{ showAmount(@$item->price) }}</td>
+                                        <td> {{ @$item->person_capability }}</td>
+
 
                                         <td>
                                             @php
-                                                echo $item->statusBadge($item->status);
+                                                echo @$item->statusBadge(@$item->status);
                                             @endphp
                                         </td>
                                         <td>
-                                            <a href="{{ route('tour.package.details', [$item->id, slug($item->title)]) }}"
+                                            <a href="{{ route('tour.package.details', [@$item->id, slug(@$item->title)]) }}"
                                                 class="btn btn--primary btn-sm">
                                                 <i class="fas fa-eye"></i></a>
 
-                                            @if ($item->user_type == 'admin')
-                                                <a href="{{ route('admin.tour.package.edit', $item->id) }}"
+                                            @if (@$item->user_type == 'admin')
+                                                <a href="{{ route('admin.tour.package.edit', @$item->id) }}"
                                                     class="btn btn--primary btn-sm">
                                                     <i class="fas fa-edit"></i></a>
-                                           
+
                                             @endif
                                         </td>
                                     </tr>

@@ -43,10 +43,11 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $pageTitle = "Register";
-        $info = json_decode(json_encode(getIpInfo()), true);
-        $mobileCode = @implode(',', $info['code']);
-        $countries = json_decode(file_get_contents(resource_path('views/includes/country.json')));
-        return view($this->activeTemplate . 'user.auth.register', compact('pageTitle','mobileCode','countries'));
+        // $info = json_decode(json_encode(getIpInfo()), true);
+        // $mobileCode = @implode(',', $info['code']);
+        // $countries = json_decode(file_get_contents(resource_path('views/includes/country.json')));
+        // return view($this->activeTemplate . 'user.auth.register', compact('pageTitle','mobileCode','countries'));
+        return view($this->activeTemplate . 'user.auth.register', compact('pageTitle'));
     }
 
 
@@ -67,19 +68,11 @@ class RegisterController extends Controller
         if ($general->agree) {
             $agree = 'required';
         }
-        $countryData = (array)json_decode(file_get_contents(resource_path('views/includes/country.json')));
-        $countryCodes = implode(',', array_keys($countryData));
-        $mobileCodes = implode(',',array_column($countryData, 'dial_code'));
-        $countries = implode(',',array_column($countryData, 'country'));
         $validate = Validator::make($data, [
             'email' => 'required|string|email|unique:users',
-            'mobile' => 'required|regex:/^([0-9]*)$/',
             'password' => ['required','confirmed',$passwordValidation],
             'username' => 'required|unique:users|min:6',
             'captcha' => 'sometimes|required',
-            'mobile_code' => 'required|in:'.$mobileCodes,
-            'country_code' => 'required|in:'.$countryCodes,
-            'country' => 'required|in:'.$countries,
             'agree' => $agree
         ]);
         return $validate;
@@ -141,13 +134,10 @@ class RegisterController extends Controller
         $user->password = Hash::make($data['password']);
         $user->username = trim($data['username']);
         $user->ref_by = $referUser ? $referUser->id : 0;
-        $user->country_code = $data['country_code'];
-        $user->mobile = $data['mobile_code'].$data['mobile'];
         $user->address = [
             'address' => '',
             'state' => '',
             'zip' => '',
-            'country' => isset($data['country']) ? $data['country'] : null,
             'city' => ''
         ];
         $user->status = 1;
@@ -168,24 +158,8 @@ class RegisterController extends Controller
 
         //Login Log Create
         $ip = getRealIP();
-        $exist = UserLogin::where('user_ip',$ip)->first();
         $userLogin = new UserLogin();
 
-        //Check exist or not
-        if ($exist) {
-            $userLogin->longitude =  $exist->longitude;
-            $userLogin->latitude =  $exist->latitude;
-            $userLogin->city =  $exist->city;
-            $userLogin->country_code = $exist->country_code;
-            $userLogin->country =  $exist->country;
-        }else{
-            $info = json_decode(json_encode(getIpInfo()), true);
-            $userLogin->longitude =  @implode(',',$info['long']);
-            $userLogin->latitude =  @implode(',',$info['lat']);
-            $userLogin->city =  @implode(',',$info['city']);
-            $userLogin->country_code = @implode(',',$info['code']);
-            $userLogin->country =  @implode(',', $info['country']);
-        }
 
         $userAgent = osBrowser();
         $userLogin->user_id = $user->id;

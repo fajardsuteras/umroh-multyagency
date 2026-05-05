@@ -12,7 +12,7 @@
                         <input type="text" name="" id="locationInput" class="controls my-2"
                             placeholder="@lang('Enter a location')" autocomplete="off">
                     </form>
-                    <form action="{{ route('admin.tour.package.update', $tourPackage->id) }}" method="post"
+                    <form action="{{ route('admin.tour.package.update', @$tourPackage->id) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')
@@ -39,37 +39,37 @@
                                     <div class="col-md-6 mb-2">
                                         <div class="form-group">
                                             <input type="text" id="lat" name="latitude" class="form-control" hidden
-                                                value="{{ $tourPackage->latitude }}">
+                                                value="{{ @$tourPackage->latitude }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-2">
                                         <div class="form-group">
                                             <input type="text" id="lon" name="longitude" class="form-control"
-                                                value="{{ $tourPackage->longitude }}" hidden>
+                                                value="{{ @$tourPackage->longitude }}" hidden>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-2">
                                         <div class="form-group">
                                             <input type="text" id="city" name="city" class="form-control"
-                                                value="{{ $tourPackage->city }}" hidden>
+                                                value="{{ @$tourPackage->city }}" hidden>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-2">
                                         <div class="form-group">
                                             <input type="text" id="zipCode" name="zipcode" class="form-control"
-                                                value="{{ $tourPackage->zip_code }}" hidden>
+                                                value="{{ @$tourPackage->zip_code }}" hidden>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-2">
                                         <div class="form-group">
                                             <input type="text" id="state" name="state" class="form-control"
-                                                value="{{ $tourPackage->state }}" hidden>
+                                                value="{{ @$tourPackage->state }}" hidden>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-2">
                                         <div class="form-group">
                                             <input type="text" id="country" name="country" class="form-control"
-                                                value="{{ $tourPackage->country }}" hidden>
+                                                value="{{ @$tourPackage->country }}" hidden>
                                         </div>
                                     </div>
                                 </div>
@@ -79,14 +79,14 @@
                                         <div class="form-group">
                                             <label class="mb-2 form--label">@lang('Title')</label>
                                             <input type="text" name="tour_title" class="form-control"
-                                                placeholder="@lang('Title')" value="{{ $tourPackage->title }}">
+                                                placeholder="@lang('Title')" value="{{ @$tourPackage->title }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="location">@lang('Address')</label>
                                             <input type="text" id="location" name="address" class="form-control"
-                                                value="{{ $tourPackage->address }}" required readonly>
+                                                value="{{ @$tourPackage->address }}" required readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
@@ -96,7 +96,7 @@
                                                 <option>@lang('Select category')</option>
                                                 @foreach ($categories ?? [] as $item)
                                                 <option value="{{ $item->id }}" {{ $item->id ==
-                                                    $tourPackage->category_id ? 'selected' : '' }}>
+                                                    @$tourPackage->category_id ? 'selected' : '' }}>
                                                     {{ $item->name }}</option>
                                                 @endforeach
                                             </select>
@@ -107,10 +107,10 @@
                                             <label class="mb-2 form--label">@lang('Flexible Date')</label>
                                             <select name="flexible_date" id="status" class="form-control" required>
                                                 <option>@lang('Select flexible date')</option>
-                                                <option value="1" {{ $tourPackage->flexible_date == 1 ? 'selected' : ''
+                                                <option value="1" {{ @$tourPackage->flexible_date == 1 ? 'selected' : ''
                                                     }}>
                                                     @lang('Fixed Date')</option>
-                                                <option value="2" {{ $tourPackage->flexible_date == 2 ? 'selected' : ''
+                                                <option value="2" {{ @$tourPackage->flexible_date == 2 ? 'selected' : ''
                                                     }}>
                                                     @lang('Custom Date')</option>
                                             </select>
@@ -125,7 +125,7 @@
                                             <label class="mb-2 form--label">@lang('Tour Start Date') </label>
                                             <input type="text" name="start_date" class="form-control datepicker-active"
                                                 data-language="en" placeholder="@lang('Start date')"
-                                                value="{{ \Carbon\Carbon::parse($tourPackage->tour_start)->format('m/d/Y , h:i a') }}"
+                                                value="{{ \Carbon\Carbon::parse(@$tourPackage->tour_start)->format('m/d/Y , h:i a') }}"
                                                 required>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@
                                             <label class="mb-2 form--label">@lang('Tour End Date')</label>
                                             <input type="text" name="end_date" class="form-control datepicker-active"
                                                 data-language="en" placeholder="@lang('End date')"
-                                                value="{{ \Carbon\Carbon::parse($tourPackage->tour_end)->format('m/d/Y , h:i a') }}"
+                                                value="{{ \Carbon\Carbon::parse(@$tourPackage->tour_end)->format('m/d/Y , h:i a') }}"
                                                 required>
                                         </div>
                                     </div>
@@ -143,7 +143,7 @@
                                             <label class="mb-2 form--label">@lang('Person Capability')</label>
                                             <input type="number" step="any" name="person_capability"
                                                 class="form-control" placeholder="@lang('Person Capability')"
-                                                value="{{ $tourPackage->person_capability }}" required>
+                                                value="{{ @$tourPackage->person_capability }}" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
@@ -151,7 +151,7 @@
                                             <label class="mb-2 form--label">@lang('Stay day & nights')</label>
                                             <input type="text" step="any" name="day_nights" class="form-control"
                                                 placeholder="@lang('3 day & 2 nights')"
-                                                value="{{ $tourPackage->day_nights }}" required>
+                                                value="{{ @$tourPackage->day_nights }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="price" name="price"
                                                     aria-label="price" aria-describedby="basic-addon2"
-                                                    value="{{ $tourPackage->price }}" required>
+                                                    value="{{ @$tourPackage->price }}" required>
                                                 <span class="input-group-text" id="basic-addon2">{{ gs()->cur_sym
                                                     }}</span>
                                             </div>
@@ -175,7 +175,7 @@
                                         <div class="form-group">
                                             <label class="mb-2 form--label">@lang('Discount')</label>
                                             <input type="number" step="any" name="discount" class="form-control"
-                                                placeholder="@lang('Discount')" value="{{ $tourPackage->discount }}">
+                                                placeholder="@lang('Discount')" value="{{ @$tourPackage->discount }}">
                                         </div>
                                     </div>
 
@@ -190,7 +190,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div id="image_preview" class="image_preview-wrapper">
-                                                @foreach ($tourPackage->tour_package_images as $i => $img)
+                                                @foreach (@$tourPackage->tour_package_images as $i => $img)
                                                 <div class='img-div' id='img-div{{ $i }}' @if ($i !=0)
                                                     onclick=imageDelete(this,{{ $img->id }}); @endif>
 
@@ -219,7 +219,7 @@
                                         <div class="form-group">
                                             <label class="mb-2 form--label">@lang('Description')</label>
                                             <textarea name="description" class="trumEdit1"
-                                                placeholder="@lang('Description')">{{ $tourPackage->description }}</textarea>
+                                                placeholder="@lang('Description')">{{ @$tourPackage->description }}</textarea>
 
                                         </div>
                                     </div>
@@ -236,7 +236,7 @@
                                             <label class="mb-2 form--label">@lang('Departure from')</label>
                                             <input type="text" name="destination_overview[departure_form]"
                                                 id="departure_form" class="form-control form--control mb-0" required
-                                                value="{{ $tourPackage->destination_overview->departure_form }}"
+                                                value="{{ @$tourPackage->destination_overview->departure_form }}"
                                                 placeholder="@lang('Departure from')" />
                                         </div>
                                     </div>
@@ -245,7 +245,7 @@
                                             <label class="mb-2 form--label">@lang('Arrival')</label>
                                             <input type="text" name="destination_overview[arrival]" id="arrival"
                                                 class="form-control form--control mb-0" required
-                                                value="{{ $tourPackage->destination_overview->arrival }}"
+                                                value="{{ @$tourPackage->destination_overview->arrival }}"
                                                 placeholder="@lang('Arrival')" />
                                         </div>
                                     </div>
@@ -256,7 +256,7 @@
                                             <label class="mb-2 form--label">@lang('Transportation')</label>
                                             <input type="text" name="destination_overview[transportation]"
                                                 id="transportation" class="form-control form--control mb-0" required
-                                                value="{{ $tourPackage->destination_overview->transportation }}"
+                                                value="{{ @$tourPackage->destination_overview->transportation }}"
                                                 placeholder="@lang('Transportation')" />
                                         </div>
                                     </div>
@@ -265,7 +265,7 @@
                                             <label class="mb-2 form--label">@lang('Accommodation')</label>
                                             <input type="text" name="destination_overview[accommodation]"
                                                 id="accommodation" class="form-control form--control mb-0" required
-                                                value="{{ $tourPackage->destination_overview->accommodation }}"
+                                                value="{{ @$tourPackage->destination_overview->accommodation }}"
                                                 placeholder="@lang('Accommodation')" />
                                         </div>
                                     </div>
@@ -291,7 +291,7 @@
                                                         <input type="text" name="highlights[]" id="highlights"
                                                             class="form-control form--control mb-0" required
                                                             placeholder="@lang('Destination Highlights')"
-                                                            value="{{ $tourPackage->highlights[0] }}" />
+                                                            value="{{ @$tourPackage->highlights[0] }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -315,11 +315,11 @@
                                                         <div class="file-upload input-group">
                                                             <input type="text" name="icons[]" id="inputIcon"
                                                                 class="form-control form--control iconPicker icon"
-                                                                value="{{ $tourPackage->features[0]->icon }}"
+                                                                value="{{ @$tourPackage->features[0]->icon }}"
                                                                 placeholder="@lang('Icons')" required>
                                                             <span class="input-group-text input-group-addon"
                                                                 data-icon="las la-home">@php echo
-                                                                $tourPackage->features[0]->icon @endphp</span>
+                                                                @$tourPackage->features[0]->icon @endphp</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -327,7 +327,7 @@
                                                     <div class="file-upload">
                                                         <label class="form-label">@lang('Destination Features')</label>
                                                         <input type="text" name="features[]" id="features"
-                                                            value="{{ $tourPackage->features[0]->feature }}"
+                                                            value="{{ @$tourPackage->features[0]->feature }}"
                                                             class="form-control form--control mb-0" required
                                                             placeholder="@lang('Destination Features')" />
                                                     </div>
@@ -335,7 +335,7 @@
                                             </div>
                                             <div id="fileUploadFeatures">
                                                 @php
-                                                $features = $tourPackage->features;
+                                                $features = @$tourPackage->features;
                                                 unset($features[0]);
                                                 @endphp
                                                 @foreach ($features as $item)
@@ -346,11 +346,11 @@
                                                             <div class="file-upload input-group">
                                                                 <input type="text" name="icons[]" id="inputIcon"
                                                                     class="form-control form--control iconPicker icon"
-                                                                    value="{{ $item->icon }}"
+                                                                    value="{{ @$item->icon }}"
                                                                     placeholder="@lang('Icons')" required>
                                                                 <span class="input-group-text input-group-addon"
                                                                     data-icon="las la-home">
-                                                                    @php echo $item->icon @endphp
+                                                                    @php echo @$item->icon @endphp
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -361,7 +361,7 @@
                                                                 Features')</label>
                                                             <input type="text" name="features[]" id="features"
                                                                 class="form-control form--control mb-0" required
-                                                                value="{{ $item->feature }}"
+                                                                value="{{ @$item->feature }}"
                                                                 placeholder="@lang('Destination Features')" />
                                                         </div>
                                                     </div>
@@ -653,8 +653,8 @@
             var map;
             var marker;
 
-            var initialLat = {{ $tourPackage->latitude }};
-            var initialLng = {{ $tourPackage->longitude }};
+            var initialLat = {{ @$tourPackage->latitude }};
+            var initialLng = {{ @$tourPackage->longitude }};
             window.gm_authFailure = function () {
                 $('#authfail').removeClass('d-none');
             };

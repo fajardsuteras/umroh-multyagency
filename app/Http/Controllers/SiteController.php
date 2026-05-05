@@ -107,31 +107,58 @@ class SiteController extends Controller
 
     public function placeholderImage($size = null)
     {
-        $imgWidth = explode('x', $size)[0];
-        $imgHeight = explode('x', $size)[1];
+        // Validate format before exploding to prevent "Undefined array key"
+        if (!$size || !strpos($size, 'x')) {
+            return $this->returnDefaultPlaceholder();
+        }
+
+        $parts = explode('x', $size);
+        $imgWidth = $parts[0];
+        $imgHeight = $parts[1];
+
+        // Ensure we have numeric values
+        if (!is_numeric($imgWidth) || !is_numeric($imgHeight)) {
+            return $this->returnDefaultPlaceholder();
+        }
+
         $text = $imgWidth . '×' . $imgHeight;
-        $fontFile = realpath('assets/font') . DIRECTORY_SEPARATOR . 'RobotoMono-Regular.ttf';
+
+        // Use base_path or public_path to ensure the font is found in your structure
+        $fontFile = public_path('assets/font/RobotoMono-Regular.ttf');
+
+        if (!file_exists($fontFile)) {
+            // Fallback to internal GD font if your TTF file is missing
+            return $this->generateBasicImage($imgWidth, $imgHeight, $text);
+        }
+
         $fontSize = round(($imgWidth - 50) / 8);
-        if ($fontSize <= 9) {
-            $fontSize = 9;
-        }
-        if ($imgHeight < 100 && $fontSize > 30) {
-            $fontSize = 30;
-        }
+        $fontSize = max($fontSize, 9);
+        if ($imgHeight < 100 && $fontSize > 30) $fontSize = 30;
 
         $image     = imagecreatetruecolor($imgWidth, $imgHeight);
         $colorFill = imagecolorallocate($image, 255, 255, 255);
         $bgFill    = imagecolorallocate($image, 28, 35, 47);
+
         imagefill($image, 0, 0, $bgFill);
-        $textBox = imagettfbbox($fontSize, 0, $fontFile, $text);
+
+        $textBox    = imagettfbbox($fontSize, 0, $fontFile, $text);
         $textWidth  = abs($textBox[4] - $textBox[0]);
         $textHeight = abs($textBox[5] - $textBox[1]);
         $textX      = ($imgWidth - $textWidth) / 2;
         $textY      = ($imgHeight + $textHeight) / 2;
+
         header('Content-Type: image/jpeg');
         imagettftext($image, $fontSize, 0, $textX, $textY, $colorFill, $fontFile, $text);
         imagejpeg($image);
         imagedestroy($image);
+        exit;
+    }
+
+    // Helper to return the actual default file if dynamic generation fails
+    private function returnDefaultPlaceholder() {
+        header('Content-Type: image/png');
+        readfile(public_path('assets/images/general/default.png'));
+        exit;
     }
 
     public function tourPackageDetails($id, $slug)
@@ -164,16 +191,16 @@ class SiteController extends Controller
             ->whereIn('status',[1,2,3]);
         $page = Page::where('tempname', $this->activeTemplate)->where('slug', 'browse')->first();
         $sections = $page->secs;
-        $locationSearch = request()->query('location');
+        $keywordSearch = request()->query('keyword');
         $categorySearch = request()->query('category_id');
         $dateSearch = request()->query('start_date');
         $personSearch = request()->query('person');
         $locationIdSearch = request()->query('location_id');
         $inputLatitude = request()->query('lati');
         $inputLongitude = request()->query('longi');
-        if ($locationSearch || $categorySearch || $dateSearch || $personSearch || $locationIdSearch || ($inputLatitude && $inputLongitude)) {
-            if ($locationSearch) {
-                $query->where('address', 'LIKE', "%{$locationSearch}%")->whereColumn('booking_person', '<=', 'person_capability');
+        if ($keywordSearch || $categorySearch || $dateSearch || $personSearch || $locationIdSearch || ($inputLatitude && $inputLongitude)) {
+            if ($keywordSearch) {
+                $query->where('title', 'LIKE', "%{$keywordSearch}%")->whereColumn('booking_person', '<=', 'person_capability');
             }
 
             if ($categorySearch) {

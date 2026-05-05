@@ -14,8 +14,6 @@ class TourPackage extends Model
         'icons' => 'object',
         'highlights' => 'object',
         'destination_overview' => 'object',
-        'includes' => 'object',
-        'excludes' => 'object',
     ];
 
     public function category()

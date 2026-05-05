@@ -14,7 +14,7 @@ class TourPackageController extends Controller
     use TourService;
     public function index()
     {
-      
+
         $pageTitle = 'Tour Package Lists';
         $categories = Category::where('status', 1)->latest()->get();
         $tourPackages = $this->tourPackageData('allTour');
@@ -98,13 +98,13 @@ class TourPackageController extends Controller
         }
 
         $tourPackages = $tourPackages->paginate(getPaginate());
- 
+
         return view('admin.tour_package.index', compact('pageTitle', 'categories', 'tourPackages'));
     }
 
     public function statusChange($id){
         $tourPackage = TourPackage::where('id',$id)->where('user_id',auth('admin')->id())->where('user_type','admin')->first();
-    
+
         $tourPackage->status = $tourPackage->status == 1 ? 0 : 1;
         $tourPackage->save();
         $notify[] = ['success', 'Status change has been successfully'];
@@ -137,7 +137,7 @@ class TourPackageController extends Controller
         return view('admin.tour_package.index', compact('pageTitle', 'categories', 'tourPackages'));
     }
 
- 
+
     protected function tourPackageData($scope = null)
     {
         if ($scope) {
@@ -161,5 +161,5 @@ class TourPackageController extends Controller
         }
         return $tourPackages->with('category','agency','TourPackagePrimaryImage','agency')->orderBy('id', 'desc')->paginate(getPaginate());
     }
-  
+
 }

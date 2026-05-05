@@ -311,8 +311,8 @@
                                     <span class="icon--wrap position-absolute fs--18">
                                         <i class="fa-solid fa-location-dot"></i>
                                     </span>
-                                    <input class="form--control pills" type="text" name="location"
-                                        placeholder="@lang('Location')" >
+                                    <input class="form--control pills" type="text" name="keyword"
+                                        placeholder="@lang('Keyword')" >
                                 </div>
 
                                 <div class="form-group position-relative pills d-none d-md-block">

@@ -14,12 +14,21 @@ return new class extends Migration
     public function up()
     {
         Schema::table('agencies', function (Blueprint $table) {
-            $table->string('company_name')->nullable();
+            $table->string('company_name')->nullable(); // Nama Travel
+
+            $table->string('pic_contact')->nullable(); // Kontak PIC (WA / Telp)
+
+            $table->string('logo')->nullable(); // Logo (16x16 px disarankan di level validasi)
+
+            $table->text('social_media')->nullable();
+            // Contoh: instagram.com/a, tiktok.com/b, facebook.com/c
+
+            $table->text('addresses')->nullable();
+            // Contoh: Jakarta, Bandung, Surabaya
+
+            // OPTIONAL (kalau masih relevan)
             $table->string('ppiu_number')->nullable();
-            $table->string('logo')->nullable();
             $table->string('banner')->nullable();
-            $table->string('whatsapp_number')->nullable();
-            $table->string('instagram')->nullable();
             $table->string('website')->nullable();
         });
     }
@@ -34,11 +43,12 @@ return new class extends Migration
         Schema::table('agencies', function (Blueprint $table) {
             $table->dropColumn([
                 'company_name',
-                'ppiu_number',
+                'pic_contact',
                 'logo',
+                'social_media',
+                'addresses',
+                'ppiu_number',
                 'banner',
-                'whatsapp_number',
-                'instagram',
                 'website'
             ]);
         });

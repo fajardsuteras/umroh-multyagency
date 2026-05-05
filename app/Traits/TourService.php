@@ -73,19 +73,6 @@ trait TourService
             $tourPackage->destination_overview = str_replace('"', "'", ($request->destination_overview));
             $tourPackage->highlights = $request->highlights;
             
-            $tourPackage->price_quad = $request->price_quad;
-            $tourPackage->price_triple = $request->price_triple;
-            $tourPackage->price_double = $request->price_double;
-            $tourPackage->airline_name = $request->airline_name;
-            $tourPackage->flight_type = $request->flight_type;
-            $tourPackage->hotel_makkah = $request->hotel_makkah;
-            $tourPackage->hotel_makkah_rating = $request->hotel_makkah_rating;
-            $tourPackage->hotel_madinah = $request->hotel_madinah;
-            $tourPackage->hotel_madinah_rating = $request->hotel_madinah_rating;
-            $tourPackage->includes = $request->includes;
-            $tourPackage->excludes = $request->excludes;
-            $tourPackage->departure_city = $request->departure_city;
-            
             $tourPackage->status = 1;
 
             $tourPackage->save();
@@ -169,19 +156,6 @@ trait TourService
         $tourPackage->features = $fullArray;
         $tourPackage->destination_overview = str_replace('"', "'", ($request->destination_overview));
         $tourPackage->highlights = $request->highlights;
-
-        $tourPackage->price_quad = $request->price_quad;
-        $tourPackage->price_triple = $request->price_triple;
-        $tourPackage->price_double = $request->price_double;
-        $tourPackage->airline_name = $request->airline_name;
-        $tourPackage->flight_type = $request->flight_type;
-        $tourPackage->hotel_makkah = $request->hotel_makkah;
-        $tourPackage->hotel_makkah_rating = $request->hotel_makkah_rating;
-        $tourPackage->hotel_madinah = $request->hotel_madinah;
-        $tourPackage->hotel_madinah_rating = $request->hotel_madinah_rating;
-        $tourPackage->includes = $request->includes;
-        $tourPackage->excludes = $request->excludes;
-        $tourPackage->departure_city = $request->departure_city;
 
         $tourPackage->save();
 

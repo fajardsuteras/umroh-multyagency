@@ -75,34 +75,6 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-4 form-group">
-                                        <label class="mb-2 form--label">@lang('Country')</label>
-                                        <select name="country" class="form-select form--control form--select pills"
-                                             required="" id="gateway">
-                                            @foreach ($countries as $key => $country)
-                                                <option data-mobile_code="{{ $country->dial_code }}"
-                                                    value="{{ $country->country }}" data-code="{{ $key }}">
-                                                    {{ __($country->country) }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-4 form-group">
-                                        <label class="mb-2 form--label">@lang('Mobile')</label>
-                                        <div class="input-group  with--text mb-4">
-                                            <span class="input-group-text bg--base text--white mobile-code"></span>
-                                            <input type="hidden" name="mobile_code">
-                                            <input type="hidden" name="country_code">
-                                            <input type="number" name="mobile"
-                                                class="form-control form--control checkUser" value="{{ old('mobile') }}"
-                                                required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="mb-4 form-group">
                                         <label class="mb-2 form--label ">@lang('Password')</label>
                                         <div class="input--group position-relative">
 
@@ -210,30 +182,11 @@
     <script>
         (function($) {
             "use strict";
-            @if ($mobileCode)
-                $(`option[data-code={{ $mobileCode }}]`).attr('selected', '');
-            @endif
-
-            $('select[name=country]').on('change', function() {
-                $('input[name=mobile_code]').val($('select[name=country] :selected').data('mobile_code'));
-                $('input[name=country_code]').val($('select[name=country] :selected').data('code'));
-                $('.mobile-code').text('+' + $('select[name=country] :selected').data('mobile_code'));
-            });
-            $('input[name=mobile_code]').val($('select[name=country] :selected').data('mobile_code'));
-            $('input[name=country_code]').val($('select[name=country] :selected').data('code'));
-            $('.mobile-code').text('+' + $('select[name=country] :selected').data('mobile_code'));
 
             $('.checkUser').on('focusout', function(e) {
                 var url = '{{ route('user.checkUser') }}';
                 var value = $(this).val();
                 var token = '{{ csrf_token() }}';
-                if ($(this).attr('name') == 'mobile') {
-                    var mobile = `${$('.mobile-code').text().substr(1)}${value}`;
-                    var data = {
-                        mobile: mobile,
-                        _token: token
-                    }
-                }
                 if ($(this).attr('name') == 'email') {
                     var data = {
                         email: value,
